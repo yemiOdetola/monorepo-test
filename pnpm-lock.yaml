@@ -122,6 +122,15 @@ importers:
         specifier: 5.8.2
         version: 5.8.2
 
+  packages/constants:
+    devDependencies:
+      '@repo/typescript-config':
+        specifier: workspace:*
+        version: link:../typescript-config
+      typescript:
+        specifier: 5.8.2
+        version: 5.8.2
+
   packages/eslint-config:
     devDependencies:
       '@eslint/js':
@@ -166,6 +175,19 @@ importers:
       tailwindcss:
         specifier: ^3.4.17
         version: 3.4.17
+
+  packages/types:
+    dependencies:
+      '@repo/constants':
+        specifier: workspace:*
+        version: link:../constants
+    devDependencies:
+      '@repo/typescript-config':
+        specifier: workspace:*
+        version: link:../typescript-config
+      typescript:
+        specifier: 5.8.2
+        version: 5.8.2
 
   packages/typescript-config: {}
 
