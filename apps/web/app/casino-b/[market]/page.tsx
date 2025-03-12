@@ -1,60 +1,18 @@
 import { notFound } from 'next/navigation';
-import Link from 'next/link';
-import { Market } from '@repo/types/market';
-import { BRAND_FEATURES, BRAND_UI_CONFIG, type CasinoBrand } from '@repo/constants/brands';
+import { Market, SUPPORTED_MARKETS } from '@repo/types/market';
+import { BRAND_FEATURES, BRAND_UI_CONFIG } from '@repo/constants/brands';
+import { FeatureCard } from '@/components/feature-card';
+import { Gradient } from '@/components/gradient';
 
 type MarketPageProps = {
   params: { market: string };
-  searchParams: { [key: string]: string | string[] | undefined };
 };
 
-function Gradient({
-  conic,
-  className,
-  small,
-}: {
-  small?: boolean;
-  conic?: boolean;
-  className?: string;
-}) {
-  return (
-    <span
-      className={`absolute mix-blend-normal will-change-[filter] rounded-[100%] ${small ? "blur-[32px]" : "blur-[75px]"
-        } ${conic ? "bg-glow-conic" : ""} ${className ?? ""}`}
-    />
-  );
-}
-
-type FeatureCardProps = {
-  title: string;
-  description: string;
-  href: string;
-}
-
-function FeatureCard({ title, description, href }: FeatureCardProps) {
-  return (
-    <Link
-      href={href}
-      className="group rounded-lg px-5 py-4 transition-colors hover:text-gray-400"
-    >
-      <h2 className="mb-3 text-2xl font-semibold">
-        {title}{' '}
-        <span className="inline-block transition-transform group-hover:translate-x-1 motion-reduce:transform-none">
-          -&gt;
-        </span>
-      </h2>
-      <p className="m-0 max-w-[30ch] text-sm opacity-50 group-hover:opacity-70">
-        {description}
-      </p>
-    </Link>
-  );
-}
-
-export default function MarketPage({ params, searchParams }: MarketPageProps) {
+export default function CasinoBMarketPage({ params }: MarketPageProps) {
   const { market } = params;
-  const brand = (searchParams.brand as CasinoBrand) || 'casinoA';
+  const brand = 'casinoB';
 
-  if (!['en', 'ca'].includes(market) || !BRAND_FEATURES[brand]) {
+  if (!SUPPORTED_MARKETS.includes(market as any) || !BRAND_FEATURES[brand]) {
     notFound();
   }
 
@@ -90,8 +48,9 @@ export default function MarketPage({ params, searchParams }: MarketPageProps) {
   ].filter(Boolean);
 
   return (
-    <main className={`flex min-h-screen flex-col items-center justify-between p-8 md:p-24 ${uiConfig.menuPosition === 'left' ? 'ml-16' : 'mt-16'
-      }`}>
+    <main className={`flex min-h-screen flex-col items-center justify-between p-8 md:p-24 ${
+      uiConfig.menuPosition === 'left' ? 'ml-16' : 'mt-16'
+    }`}>
       <div className="relative w-full max-w-5xl mx-auto">
         <div className="z-10 w-full font-mono text-sm mb-12">
           <p className="fixed left-0 top-0 w-full border-b border-neutral-800 bg-zinc-800/30 from-inherit pb-6 pt-8 backdrop-blur-2xl lg:static lg:w-auto lg:rounded-xl lg:border lg:bg-gray-200 lg:p-4">
@@ -109,7 +68,9 @@ export default function MarketPage({ params, searchParams }: MarketPageProps) {
           </div>
 
           <div className="z-10 mb-12 text-center">
-            <h1 className="text-4xl font-bold mb-4">{brand}</h1>
+            <h1 className="text-4xl font-bold mb-4" style={{ color: uiConfig.theme.primary }}>
+              Casino B
+            </h1>
             <p className="text-xl text-gray-400">
               {market === 'ca' ? 'Your Canadian Gaming Destination' : 'Your UK Gaming Hub'}
             </p>
@@ -129,4 +90,4 @@ export default function MarketPage({ params, searchParams }: MarketPageProps) {
       </div>
     </main>
   );
-}
+} 

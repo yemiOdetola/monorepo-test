@@ -11,15 +11,15 @@
     "check-types": "tsc --noEmit"
   },
   "dependencies": {
-    "@repo/constants": "workspace:*",
-    "@repo/ui": "workspace:*",
-    "@repo/types": "workspace:*",
-    "@tanstack/react-query": "^5.67.2",
     "@reduxjs/toolkit": "^2.6.1",
-    "react-redux": "^9.2.0",
+    "@repo/constants": "workspace:*",
+    "@repo/types": "workspace:*",
+    "@repo/ui": "workspace:*",
+    "@tanstack/react-query": "^5.67.2",
     "next": "^15.2.1",
     "react": "^19.0.0",
-    "react-dom": "^19.0.0"
+    "react-dom": "^19.0.0",
+    "react-redux": "^9.2.0"
   },
   "devDependencies": {
     "@next/eslint-plugin-next": "^15.2.1",
