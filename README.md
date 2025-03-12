@@ -1,18 +1,28 @@
-# Turborepo Tailwind CSS starter
+# Project details
 
-This Turborepo starter is maintained by the Turborepo core team.
+This project is generated with Turborepo starter.
 
-## Using this example
+## To run the app locally
 
 Run the following command:
 
 ```sh
-npx create-turbo@latest -e with-tailwind
+pnpm i && pnpm dev
 ```
+
+## Styling Approach
+
+This project uses Tailwind CSS for styling because it offers:
+
+- **Rapid Development**: Utility-first approach allows quick prototyping and consistent styling
+- **Performance**: Only generates CSS for classes actually used in the project
+- **Maintainability**: Reduces CSS bundle size and eliminates the need to maintain separate stylesheets
+- **Responsive Design**: Built-in responsive modifiers make mobile-first design straightforward
+- **Component Consistency**: Reusable utility combinations ensure consistent UI patterns across casino brands
 
 ## What's inside?
 
-This Turborepo includes the following packages/apps:
+This project includes the following packages/apps:
 
 ### Apps and Packages
 
@@ -21,8 +31,6 @@ This Turborepo includes the following packages/apps:
 - `ui`: a stub React component library with [Tailwind CSS](https://tailwindcss.com/) shared by both `web` and `docs` applications
 - `@repo/eslint-config`: `eslint` configurations (includes `eslint-config-next` and `eslint-config-prettier`)
 - `@repo/typescript-config`: `tsconfig.json`s used throughout the monorepo
-
-Each package/app is 100% [TypeScript](https://www.typescriptlang.org/).
 
 ### Building packages/ui
 
