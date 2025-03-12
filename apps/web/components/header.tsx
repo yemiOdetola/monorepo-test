@@ -6,7 +6,7 @@ import { useMemo, useEffect, useState } from 'react';
 export default function Header() {
   const pathname = usePathname();
   const router = useRouter();
-  const [authState, setAuthState] = useState({ isLoggedIn: false, username: '', market: 'en' });
+  const [authState, setAuthState] = useState({ isLoggedIn: false, username: '', market: 'en', displayName: '' });
 
   useEffect(() => {
     const checkAuth = () => {
@@ -17,16 +17,30 @@ export default function Header() {
         })
       );
       
+      const username = cookies.get('username') || '';
+      const market = cookies.get('market') || 'en';
+      
+      // Get profile data from localStorage
+      let displayName = username;
+      if (username) {
+        const profileData = localStorage.getItem(`profile_${username}`);
+        if (profileData) {
+          const { firstName, lastName } = JSON.parse(profileData);
+          displayName = `${firstName}${lastName ? ` ${lastName}` : ''}`;
+        }
+      }
+
       setAuthState({
-        isLoggedIn: !!cookies.get('username'),
-        username: cookies.get('username') || '',
-        market: cookies.get('market') || 'en'
+        isLoggedIn: !!username,
+        username,
+        market,
+        displayName
       });
     };
 
     checkAuth();
     
-    // Listen for cookie changes
+    // Listen for cookie changes and localStorage changes
     window.addEventListener('storage', checkAuth);
     return () => window.removeEventListener('storage', checkAuth);
   }, [pathname]);
@@ -80,7 +94,15 @@ export default function Header() {
           </div>
           {authState.isLoggedIn ? (
             <div className="flex items-center space-x-4">
-              <span className="text-sm font-medium">Welcome, {authState.username}</span>
+              <button
+                onClick={() => router.push(`/${market}/my-profile`)}
+                className="text-sm font-medium hover:text-gray-200 transition-colors flex items-center"
+              >
+                <span>Welcome, {authState.displayName}</span>
+                <svg className="w-4 h-4 ml-1 opacity-75" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
+                </svg>
+              </button>
               <button
                 onClick={handleLogout}
                 className="text-sm text-white/80 hover:text-white underline underline-offset-2"
