@@ -3,9 +3,7 @@ import { SUPPORTED_MARKETS } from '@repo/types/market'
 
 interface MarketLayoutProps {
   children: React.ReactNode;
-  params: {
-    market: string;
-  };
+  params: Promise<{ market: string }>;
 }
 
 export default async function MarketLayout({ children, params }: MarketLayoutProps) {

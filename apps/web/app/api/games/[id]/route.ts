@@ -16,14 +16,14 @@ async function loadGames(): Promise<Game[]> {
 
 export async function GET(
   request: NextRequest,
-  { params }: { params: { id: string } }
+  { params }: { params: Promise<{ id: string }> }
 ) {
-  const id = parseInt(params.id, 10);
+  const { id } = await params;
   const market = request.nextUrl.searchParams.get('market') || 'en';
 
   try {
     const games = await loadGames();
-    const game = games.find(g => g.id === id);
+    const game = games.find(g => g.id === parseInt(id, 10));
 
     if (!game) {
       return NextResponse.json(

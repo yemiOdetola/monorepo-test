@@ -138,6 +138,10 @@ importers:
         version: 5.8.2
 
   packages/constants:
+    dependencies:
+      '@repo/types':
+        specifier: workspace:*
+        version: link:../types
     devDependencies:
       '@repo/typescript-config':
         specifier: workspace:*
@@ -192,10 +196,6 @@ importers:
         version: 3.4.17
 
   packages/types:
-    dependencies:
-      '@repo/constants':
-        specifier: workspace:*
-        version: link:../constants
     devDependencies:
       '@repo/typescript-config':
         specifier: workspace:*

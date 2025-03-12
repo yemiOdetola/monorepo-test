@@ -6,11 +6,12 @@ import { Market } from '@repo/types/market';
 export default async function CasinoPage({
   params
 }: {
-  params: { market: string }
+  params: Promise<{ market: string }>
 }) {
-  const {market} = await params;
+  const { market } = await params;
+
   const { games, total } = await getGames(market as Market, 1, 50);
-  
+
   return (
     <main>
       <Suspense fallback={<div>Loading games...</div>}>

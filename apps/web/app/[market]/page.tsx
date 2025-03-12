@@ -4,8 +4,8 @@ import { Market } from '@repo/types/market';
 import { BRAND_FEATURES, BRAND_UI_CONFIG, type CasinoBrand } from '@repo/constants/brands';
 
 type MarketPageProps = {
-  params: { market: string };
-  searchParams: { [key: string]: string | string[] | undefined };
+  params: Promise<{ market: string }>;
+  searchParams: Promise<{ [key: string]: string | string[] | undefined }>;
 };
 
 function Gradient({
@@ -50,9 +50,9 @@ function FeatureCard({ title, description, href }: FeatureCardProps) {
   );
 }
 
-export default function MarketPage({ params, searchParams }: MarketPageProps) {
-  const { market } = params;
-  const brand = (searchParams.brand as CasinoBrand) || 'casinoA';
+export default async function MarketPage({ params, searchParams }: MarketPageProps) {
+  const { market } = await params;
+  const brand = (await searchParams).brand as CasinoBrand || 'casinoA';
 
   if (!['en', 'ca'].includes(market) || !BRAND_FEATURES[brand]) {
     notFound();

@@ -5,11 +5,11 @@ import { FeatureCard } from '@/components/feature-card';
 import { Gradient } from '@/components/gradient';
 
 type MarketPageProps = {
-  params: { market: string };
+  params: Promise<{ market: string }>;
 };
 
-export default function CasinoBMarketPage({ params }: MarketPageProps) {
-  const { market } = params;
+export default async function CasinoBMarketPage({ params }: MarketPageProps) {
+  const { market } = await params;
   const brand = 'casinoB';
 
   if (!SUPPORTED_MARKETS.includes(market as any) || !BRAND_FEATURES[brand]) {
