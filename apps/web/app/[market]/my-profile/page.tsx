@@ -55,6 +55,8 @@ export default function ProfilePage() {
       if (!username) throw new Error('User not found');
 
       localStorage.setItem(`profile_${username}`, JSON.stringify(formData));
+      
+      window.dispatchEvent(new Event('storage'));
 
       await new Promise(resolve => setTimeout(resolve, 500));
 
@@ -67,11 +69,11 @@ export default function ProfilePage() {
   };
 
   return (
-    <main className="min-h-screen">
+    <main className="min-h-screen bg-gray-50">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6 sm:py-12">
         <div className="max-w-xl mx-auto">
           <div className="text-center mb-8 sm:mb-12 px-4">
-            <h1 className="text-2xl sm:text-3xl md:text-4xl font-bold text-gray-600 mb-2">
+            <h1 className="text-2xl sm:text-3xl md:text-4xl font-bold text-gray-900 mb-2">
               Profile Settings
             </h1>
             <p className="text-sm sm:text-base text-gray-600">
@@ -79,11 +81,11 @@ export default function ProfilePage() {
             </p>
           </div>
 
-          <div className="rounded-2xl p-4 sm:p-8">
+          <div className="bg-white rounded-2xl p-4 sm:p-8 shadow-lg border border-gray-200">
             <form onSubmit={handleSubmit} className="space-y-6 sm:space-y-8">
               <div className="space-y-4 sm:space-y-6">
                 <div>
-                  <label htmlFor="firstName" className="block text-sm font-medium text-gray-500 mb-2">
+                  <label htmlFor="firstName" className="block text-sm font-medium text-gray-700 mb-2">
                     First Name
                   </label>
                   <input
@@ -91,13 +93,13 @@ export default function ProfilePage() {
                     id="firstName"
                     value={formData.firstName}
                     onChange={(e) => setFormData(prev => ({ ...prev, firstName: e.target.value }))}
-                    className="w-full px-3 sm:px-4 py-2 sm:py-3 rounded-xl border border-neutral-700 text-gray-500 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all"
+                    className="w-full px-3 sm:px-4 py-2 sm:py-3 rounded-xl border border-gray-300 text-gray-900 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all"
                     required
                   />
                 </div>
 
                 <div>
-                  <label htmlFor="lastName" className="block text-sm font-medium text-gray-500 mb-2">
+                  <label htmlFor="lastName" className="block text-sm font-medium text-gray-700 mb-2">
                     Last Name
                   </label>
                   <input
@@ -105,7 +107,7 @@ export default function ProfilePage() {
                     id="lastName"
                     value={formData.lastName}
                     onChange={(e) => setFormData(prev => ({ ...prev, lastName: e.target.value }))}
-                    className="w-full px-3 sm:px-4 py-2 sm:py-3 rounded-xl border border-neutral-700 text-gray-500 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all"
+                    className="w-full px-3 sm:px-4 py-2 sm:py-3 rounded-xl border border-gray-300 text-gray-900 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all"
                     required
                   />
                 </div>
@@ -113,10 +115,11 @@ export default function ProfilePage() {
 
               {message && (
                 <div
-                  className={`p-3 sm:p-4 rounded-xl text-sm sm:text-base ${message.includes('success')
-                      ? 'bg-green-500/10 text-green-400 border border-green-500/20'
-                      : 'bg-red-500/10 text-red-400 border border-red-500/20'
-                    }`}
+                  className={`p-3 sm:p-4 rounded-xl text-sm sm:text-base ${
+                    message.includes('success')
+                      ? 'bg-green-50 text-green-700 border border-green-200'
+                      : 'bg-red-50 text-red-700 border border-red-200'
+                  }`}
                 >
                   {message}
                 </div>
@@ -125,7 +128,7 @@ export default function ProfilePage() {
               <button
                 type="submit"
                 disabled={isLoading}
-                className="w-full px-4 sm:px-6 py-2.5 sm:py-3 rounded-xl bg-gray-100 text-gray-600 font-medium hover:bg-gray-200 disabled:opacity-50 disabled:cursor-not-allowed transition-all transform hover:scale-[1.02] active:scale-[0.98]"
+                className="w-full px-4 sm:px-6 py-2.5 sm:py-3 rounded-xl bg-blue-600 text-white font-medium hover:bg-blue-500 disabled:opacity-50 disabled:cursor-not-allowed transition-all transform hover:scale-[1.02] active:scale-[0.98]"
               >
                 {isLoading ? (
                   <span className="flex items-center justify-center text-sm sm:text-base">

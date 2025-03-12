@@ -20,7 +20,6 @@ export default function Page() {
 
     checkMarket();
     
-    // Listen for cookie changes
     window.addEventListener('storage', checkMarket);
     return () => window.removeEventListener('storage', checkMarket);
   }, []);
