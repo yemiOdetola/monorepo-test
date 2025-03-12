@@ -12,9 +12,6 @@
     "dev": "tsc --watch",
     "build": "tsc"
   },
-  "dependencies": {
-    "@repo/constants": "workspace:*"
-  },
   "devDependencies": {
     "@repo/typescript-config": "workspace:*",
     "typescript": "5.8.2"

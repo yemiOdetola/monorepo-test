@@ -1,12 +1,10 @@
 import LoginForm from '@/components/login-form';
 
-export default function LoginPage({ params }: { params: { market: string } }) {
-  const { market } = params;
+export default function LoginPage() {
 
   return (
     <div>
-      <h2>Login to {market === 'en' ? 'English' : 'Canadian'} Market</h2>
-      <LoginForm market={market} />
+      <LoginForm />
     </div>
   );
 }

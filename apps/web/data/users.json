@@ -1,0 +1,22 @@
+[
+  {
+    "id": "1",
+    "username": "user_en",
+    "password": "password123",
+    "market": "en",
+    "firstName": "John",
+    "lastName": "Doe",
+    "email": "john@example.com",
+    "createdAt": "2025-03-09T00:00:00Z"
+  },
+  {
+    "id": "2",
+    "username": "user_ca",
+    "password": "password123",
+    "market": "ca",
+    "firstName": "Jane",
+    "lastName": "Smith",
+    "email": "jane@example.com",
+    "createdAt": "2025-03-09T00:00:00Z"
+  }
+]
