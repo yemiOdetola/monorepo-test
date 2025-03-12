@@ -2,28 +2,12 @@ import { notFound } from 'next/navigation';
 import Link from 'next/link';
 import { Market } from '@repo/types/market';
 import { BRAND_FEATURES, BRAND_UI_CONFIG, type CasinoBrand } from '@repo/constants/brands';
-
+import { Gradient } from '@repo/ui/gradient';
 type MarketPageProps = {
   params: Promise<{ market: string }>;
   searchParams: Promise<{ [key: string]: string | string[] | undefined }>;
 };
 
-function Gradient({
-  conic,
-  className,
-  small,
-}: {
-  small?: boolean;
-  conic?: boolean;
-  className?: string;
-}) {
-  return (
-    <span
-      className={`absolute mix-blend-normal will-change-[filter] rounded-[100%] ${small ? "blur-[32px]" : "blur-[75px]"
-        } ${conic ? "bg-glow-conic" : ""} ${className ?? ""}`}
-    />
-  );
-}
 
 type FeatureCardProps = {
   title: string;

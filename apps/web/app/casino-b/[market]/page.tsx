@@ -1,8 +1,9 @@
 import { notFound } from 'next/navigation';
 import { Market, SUPPORTED_MARKETS } from '@repo/types/market';
 import { BRAND_FEATURES, BRAND_UI_CONFIG } from '@repo/constants/brands';
-import { FeatureCard } from '@/components/feature-card';
-import { Gradient } from '@/components/gradient';
+import { FeatureCard } from '@repo/ui/feature-card';
+import { Gradient } from '@repo/ui/gradient';
+import Link from 'next/link';
 
 type MarketPageProps = {
   params: Promise<{ market: string }>;
@@ -48,9 +49,8 @@ export default async function CasinoBMarketPage({ params }: MarketPageProps) {
   ].filter(Boolean);
 
   return (
-    <main className={`flex min-h-screen flex-col items-center justify-between p-8 md:p-24 ${
-      uiConfig.menuPosition === 'left' ? 'ml-16' : 'mt-16'
-    }`}>
+    <main className={`flex min-h-screen flex-col items-center justify-between p-8 md:p-24 ${uiConfig.menuPosition === 'left' ? 'ml-16' : 'mt-16'
+      }`}>
       <div className="relative w-full max-w-5xl mx-auto">
         <div className="z-10 w-full font-mono text-sm mb-12">
           <p className="fixed left-0 top-0 w-full border-b border-neutral-800 bg-zinc-800/30 from-inherit pb-6 pt-8 backdrop-blur-2xl lg:static lg:w-auto lg:rounded-xl lg:border lg:bg-gray-200 lg:p-4">
@@ -78,12 +78,13 @@ export default async function CasinoBMarketPage({ params }: MarketPageProps) {
 
           <div className="grid gap-8 md:grid-cols-2 lg:grid-cols-3 w-full max-w-4xl">
             {featureCards.map((feature) => feature && (
-              <FeatureCard
-                key={feature.title}
-                title={feature.title}
-                description={feature.description}
-                href={feature.href}
-              />
+              <Link href={feature.href}>
+                <FeatureCard
+                  key={feature.title}
+                  title={feature.title}
+                  description={feature.description}
+                />
+              </Link>
             ))}
           </div>
         </div>

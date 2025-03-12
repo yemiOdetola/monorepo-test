@@ -1,8 +1,9 @@
 import { notFound } from 'next/navigation';
 import { Market, SUPPORTED_MARKETS } from '@repo/types/market';
 import { BRAND_FEATURES, BRAND_UI_CONFIG } from '@repo/constants/brands';
-import { FeatureCard } from '@/components/feature-card';
-import { Gradient } from '@/components/gradient';
+import { FeatureCard } from '@repo/ui/feature-card';
+import { Gradient } from '@repo/ui/gradient';
+import Link from 'next/link';
 
 type MarketPageProps = {
   params: Promise<{ market: string }>;
@@ -77,12 +78,13 @@ export default async function CasinoAMarketPage({ params }: MarketPageProps) {
 
           <div className="grid gap-8 md:grid-cols-2 lg:grid-cols-3 w-full max-w-4xl">
             {featureCards.map((feature) => feature && (
-              <FeatureCard
-                key={feature.title}
-                title={feature.title}
-                description={feature.description}
-                href={feature.href}
-              />
+              <Link href={feature.href}>
+                <FeatureCard
+                  key={feature.title}
+                  title={feature.title}
+                  description={feature.description}
+                />
+              </Link>
             ))}
           </div>
         </div>
