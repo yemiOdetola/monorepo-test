@@ -43,6 +43,7 @@ export default function LoginForm() {
 
   return (
     <div className="p-4">
+      <p className="text-sm text-gray-500 mb-8">Login hint: use "user_ca" for Canada, and "user_en" for England markets</p>
       {error && <div className="text-red-500 mb-4">{error}</div>}
       <input
         type="text"
