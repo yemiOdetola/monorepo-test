@@ -13,19 +13,36 @@ jest.mock('@/data/users.json', () => ([{
 }]), { virtual: true });
 
 
-jest.mock('next/server', () => ({
-  NextResponse: {
-    json: (data: any, init?: ResponseInit) => {
-      return new Response(JSON.stringify(data), {
-        ...init,
-        headers: {
-          ...init?.headers,
-          'Content-Type': 'application/json',
-        },
-      });
+jest.mock('next/server', () => {
+  const deletedCookies = new Set();
+  return {
+    NextResponse: {
+      json: (data: any, init?: ResponseInit) => {
+        const response = new Response(JSON.stringify(data), {
+          ...init,
+          headers: {
+            ...init?.headers,
+            'Content-Type': 'application/json',
+          },
+          status: init?.status || 200
+        });
+
+        Object.defineProperty(response, 'cookies', {
+          value: {
+            delete: (name: string) => {
+              deletedCookies.add(name);
+              response.headers.append('Set-Cookie', 
+                `${name}=; Path=/; Expires=Thu, 01 Jan 1970 00:00:00 GMT`
+              );
+            }
+          }
+        });
+
+        return response;
+      }
     }
-  }
-}));
+  };
+});
 
 describe('Auth API', () => {
   describe('Login', () => {
@@ -78,7 +95,6 @@ describe('Auth API', () => {
 
       expect(data).toEqual({ success: true });
       
-      // Check if cookies are deleted
       const cookies = response.headers.get('Set-Cookie')?.split(', ');
       expect(cookies).toContain('username=; Path=/; Expires=Thu, 01 Jan 1970 00:00:00 GMT');
       expect(cookies).toContain('market=; Path=/; Expires=Thu, 01 Jan 1970 00:00:00 GMT');
