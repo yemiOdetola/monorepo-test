@@ -20,7 +20,6 @@ export default function Header() {
       const username = cookies.get('username') || '';
       const market = cookies.get('market') || 'en';
       
-      // Get profile data from localStorage
       let displayName = username;
       if (username) {
         const profileData = localStorage.getItem(`profile_${username}`);
@@ -40,7 +39,6 @@ export default function Header() {
 
     checkAuth();
     
-    // Listen for cookie changes and localStorage changes
     window.addEventListener('storage', checkAuth);
     return () => window.removeEventListener('storage', checkAuth);
   }, [pathname]);
@@ -53,7 +51,9 @@ export default function Header() {
   const handleLogout = () => {
     document.cookie = 'username=; Path=/; Expires=Thu, 01 Jan 1970 00:00:00 GMT';
     document.cookie = 'market=; Path=/; Expires=Thu, 01 Jan 1970 00:00:00 GMT';
-    // Dispatch storage event to trigger re-render
+
+
+    
     window.dispatchEvent(new Event('storage'));
     router.push(`/${market}/login`);
     router.refresh();
