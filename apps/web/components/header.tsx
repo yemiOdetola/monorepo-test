@@ -54,14 +54,26 @@ export default function Header() {
             <nav>
               <ul className="flex space-x-6">
                 {authState.isLoggedIn && (
-                  <li>
-                    <button
-                      onClick={() => router.push(`/${market}/casino`)}
-                      className="hover:text-gray-200"
-                    >
-                      Games
-                    </button>
-                  </li>
+                  <>
+                    <li>
+                      <button
+                        onClick={() => router.push(`/${market}/casino`)}
+                        className="hover:text-gray-200"
+                      >
+                        Games
+                      </button>
+                    </li>
+                    {market === 'ca' && (
+                      <li>
+                        <button
+                          onClick={() => router.push(`/${market}/tournaments`)}
+                          className="hover:text-gray-200"
+                        >
+                          Tournaments
+                        </button>
+                      </li>
+                    )}
+                  </>
                 )}
               </ul>
             </nav>
